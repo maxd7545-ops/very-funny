@@ -1,7 +1,7 @@
 {
-  "name": "rammerhead",
+  "name": "my-app",
   "version": "1.2.64",
-  "description": "User friendly web proxy powered by testcafe-hammerhead",
+  "description": "67",
   "main": "src/index.js",
   "scripts": {
     "preinstall": "npm install --package-lock-only --ignore-scripts && npx npm-force-resolutions",

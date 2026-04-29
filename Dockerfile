@@ -5,4 +5,4 @@ COPY . .
 RUN npm install
 RUN npm run build
 EXPOSE 7860
-CMD ["node", "src/server.js", "--port", "7860"]
+CMD ["node", "src/server.js", "--port", "8080", "--host", "0.0.0.0"]

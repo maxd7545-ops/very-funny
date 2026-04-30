@@ -31,7 +31,7 @@ module.exports = {
         hostname: host, 
         port: 443, 
         crossDomainPort: 443, 
-        protocol: 'https:' 
+        protocol: 'https:' // CRITICAL: Must be https
     };
 },
     // example of non-hard-coding the hostname header

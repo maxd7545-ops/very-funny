@@ -11,7 +11,7 @@ module.exports = {
 
     bindingAddress: '0.0.0.0',
     port: 7860,
-    crossDomainPort: 7861,
+    crossDomainPort: null,
     publicDir: path.join(__dirname, '../public'), // set to null to disable
 
     // enable or disable multithreading
@@ -25,7 +25,15 @@ module.exports = {
     // this function's return object will determine how the client url rewriting will work.
     // set them differently from bindingAddress and port if rammerhead is being served
     // from a reverse proxy.
-    getServerInfo: () => ({ hostname: 'localhost', port: 8080, crossDomainPort: 8081, protocol: 'http:' }),
+    getServerInfo: (req) => {
+    const host = req.headers.host || '';
+    return { 
+        hostname: host, 
+        port: 443, 
+        crossDomainPort: 443, 
+        protocol: 'https:' 
+    };
+},
     // example of non-hard-coding the hostname header
     // getServerInfo: (req) => {
     //     return { hostname: new URL('http://' + req.headers.host).hostname, port: 443, crossDomainPort: 8443, protocol: 'https: };
@@ -89,7 +97,7 @@ module.exports = {
     generatePrefix: (level) => `[${new Date().toISOString()}] [${level.toUpperCase()}] `,
 
     // logger depends on this value
-    getIP: (req) => req.socket.remoteAddress
+    getIP: (req) => (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim()
     // use the example below if rammerhead is sitting behind a reverse proxy like nginx
     // getIP: req => (req.headers['x-forwarded-for'] || req.connection.remoteAddress || '').split(',')[0].trim()
 };

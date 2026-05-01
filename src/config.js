@@ -8,6 +8,9 @@ const enableWorkers = os.cpus().length !== 1;
 
 module.exports = {
     codec: 'base64',
+    sslOptions: {
+        rejectUnauthorized: false
+    },
     //// HOSTING CONFIGURATION ////
 
     bindingAddress: '0.0.0.0',

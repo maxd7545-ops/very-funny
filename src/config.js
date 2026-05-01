@@ -64,7 +64,18 @@ module.exports = {
     // removes reverse proxy headers
     // cloudflare example:
     // stripClientHeaders: ['cf-ipcountry', 'cf-ray', 'x-forwarded-proto', 'cf-visitor', 'cf-connecting-ip', 'cdn-loop', 'x-forwarded-for'],
-    stripClientHeaders: [],
+    // removes reverse proxy headers to hide the proxy's identity
+stripClientHeaders: [
+    'cf-ipcountry', 
+    'cf-ray', 
+    'x-forwarded-proto', 
+    'cf-visitor', 
+    'cf-connecting-ip', 
+    'cdn-loop', 
+    'x-forwarded-for',
+    'x-real-ip'
+],
+
     // if you want to modify response headers, like removing the x-frame-options header, do it like so:
     // rewriteServerHeaders: {
     //     // you can also specify a function to modify/add the header using the original value (undefined if adding the header)
@@ -104,7 +115,7 @@ module.exports = {
     generatePrefix: (level) => `[${new Date().toISOString()}] [${level.toUpperCase()}] `,
 
     // logger depends on this value
-    getIP: (req) => (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim()
+    getIP: req => (req.headers['x-forwarded-for'] || req.connection.remoteAddress || '').split(',')[0].trim()
     // use the example below if rammerhead is sitting behind a reverse proxy like nginx
     // getIP: req => (req.headers['x-forwarded-for'] || req.connection.remoteAddress || '').split(',')[0].trim()
 };

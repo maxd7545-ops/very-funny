@@ -58,7 +58,7 @@ module.exports = {
     // disabling may reduce number of errors/memory, but also risk
     // removing support for picky sites like web.whatsapp.com that want
     // the client to connect to http2 before connecting to their websocket
-    disableHttp2: false,
+    disableHttp2: true,
 
     //// REWRITE HEADER CONFIGURATION ////
 
